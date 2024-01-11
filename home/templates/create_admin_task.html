@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block title %} Create Admin Task {% endblock title %}
+{% block body %}
+<form method="post" action="{% url 'create_admin_task' %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+
+    {% if request.user.userprofile.role == 'regular' %}
+        <label for="Submission">Your Submission:</label>
+        <textarea id="submission" name="submission" rows="4" cols="50"></textarea>
+    {% endif %}
+
+    <button type="submit">Create Task</button>
+</form>
+{% endblock body %}

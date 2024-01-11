@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% block title %} Home {% endblock title %}
+{% block body %}
+   
+
+{% if messages %}
+<div class="my-3 mx-5">
+    {% for message in messages %}
+        <div class="alert {% if message.tags == 'success' %}alert-success{% elif message.tags == 'error' %}alert-danger{% endif %}" role="alert">
+            {{ message }}
+        </div>
+    {% endfor %}
+</div>
+{% endif %}
+
+<div class="c-container my-4">
+    <h1 class="w-container"> Manage your day! </h1>
+    <p class="p-container"> Keep track of what you do or what you want to do </P>
+</div>
+
+<div class="container my-3">
+    <h2 class="add"> Add Task </h2> 
+</div>
+
+{% if request.user.userprofile.role == 'regular' %}
+<!-- Create Task Form -->
+<div class="formbody">
+    <div class="container">
+        <form action="{% url 'home' %}" method="post">
+            {% csrf_token %}
+           
+            {{ task_form.as_p }}
+            <button class="btn btn-success" type="submit" name="create_task">Submit Task</button>
+        </form>
+    </div>
+  </div>
+{% endif %}
+
+
+{% if request.user.userprofile.role == 'admin' %}
+<!-- Assign Task Form -->
+<div class="formbody">
+    <div class="container">
+        <form action="{% url 'home' %}" method="post">
+            {% csrf_token %}
+           
+            {{ assign_task_form.as_p }}
+            <button class="btn btn-success" type="submit" name="assign_task">Assign Task</button>
+        </form>
+    </div>
+</div>
+{% endif %}
+<br>
+<br>
+<br>
+<br>
+
+<section id="contact">
+    <p id="get-in"> Get in touch</p>
+    <h2 id="con"><b> Contact Me</b></h2>
+    <br>
+    <div class="flex">
+        <div classname="flex flex-col w-60 m-10">
+            <div class="social linkdin">Linkdin: <a href="https://www.linkedin.com/in/vishal-ishi-793742243" rel="linkdin"> Linkdin</a></div>
+            <div class="social email">Email: <a href="vishalforex21@gmail.com" rel="email">Email </a></div>
+            <div class="social phone">Phone: 9146937612 </div>
+        </div>
+    </div>
+</section>
+<br>
+<br>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</body>
+</html>
+    
+{% endblock body %}

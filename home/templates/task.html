@@ -1,0 +1,219 @@
+{% extends 'base.html' %}
+{% block title %} Task {% endblock title %}
+{% block body %}
+
+{% if messages %}
+    <div class="my-3 mx-5">
+        {% for message in messages %}
+            <div class="alert {% if message.tags == 'success' %}alert-success{% elif message.tags == 'error' %}alert-danger{% endif %}" role="alert">
+                {{ message }}
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}
+                
+<!-- Add this in a place where you want to display notifications -->
+{% for notification in notifications %}
+    <div class="alert alert-info">
+        {{ notification.message }}
+    </div>
+{% endfor %}
+
+<div class="container my-3">
+    <h2 class="text-center">My Task List</h2>
+</div>
+
+{% if perms.home.add_task %}
+    <!-- Form for adding tasks -->
+    <form method="post" action="{% url 'home' %}">
+        {% csrf_token %}
+        {{ form.as_table }}
+        <button type="submit" class="btn btn-primary" href="{% url 'home' %}">Add Task</button>
+    </form>
+{% endif %}
+
+<!-- Display Tasks list -->
+
+{% if not query %}
+    <table id="search-result-table1" class="display" style="width:100%">
+        <thead>
+    <tr>
+      <th>ID</th>
+      <th>User</th>
+      <th>Task Title</th>
+      <th>Task Desc</th>
+      <th>Status</th>
+      <th>assigned_to</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+        <tbody>
+            {% for task in tasks %}
+            
+ <tr>
+      <td>{{ task.id }}</td>
+      <td>{{ task.user.username }} </td>
+      <td>
+        <div class="col-8">
+          <span class="editable">{{ task.taskTitle }}</span>
+          <input type="text" name="new_task_title" value="{{ task.taskTitle }}" class="form-control editable-input" size="10" style="display: none;" />
+        </div>
+      </td>
+
+      <td>
+        <div class="col-8">
+          <span class="editable">{{ task.taskDesc }}</span>
+          <input type="text" name="new_task_desc" value="{{ task.taskDesc }}" class="form-control editable-input" size="10" style="display: none;" />
+        </div>
+      </td>
+
+      <td>
+        {{ task.status }}
+        {% if task.user == request.user %}
+        <form method="POST" action="{% url 'change_status' task.id %}">
+          {% csrf_token %}
+          <div class="col-5">
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="new_status" id="flexRadioDefault1" value="todo" {% if task.status == 'todo' %}checked{% endif %}>
+              <label class="form-check-label" for="flexRadioDefault1">Todo</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="new_status" id="flexRadioDefault2" value="in_progress" {% if task.status == 'in_progress' %}checked{% endif %}>
+              <label class="form-check-label" for="flexRadioDefault2">In Progress</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="new_status" id="flexRadioDefault3" value="completed" {% if task.status == 'completed' %}checked{% endif %}>
+              <label class="form-check-label" for="flexRadioDefault3">Completed</label>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-outline-secondary btn-sm">Update</button>
+        </form>
+        {% endif %}
+      </td>
+      <td>{{ task.assigned_to.username }}</td>
+      <td>
+      
+        {% if task.user == request.user %}
+        {% if perms.home.delete_task %}
+
+        <form method="POST" action="{% url 'delete_task' task.id %}">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+        </form>
+        {% endif %}
+        {% endif %}
+      </td>
+        
+      <td>
+        {% if task.user == request.user %}
+        {% if perms.home.change_task %}
+      
+    <form method="POST" action="{% url 'change_task' task.id %}">
+        {% csrf_token %}
+        <button class="btn btn-outline-success btn-sm edit-btn" onclick="window.location='{% url 'change_task' task.id %}'">Change Details</button>
+    </form>
+        {% endif %}
+        {% endif %}
+      </td>
+      
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endif %}
+
+
+{% block content %}
+{% if search_query %}
+    <table id="search-result-table" class="display" style="width:100%"> 
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>User</th>
+          <th>Task Title</th>
+          <th>Task Desc</th>
+          <th>Status</th>
+          <th>Assigned To</th>
+
+      </tr>
+      </thead>
+        <tbody>
+          dynamically populate DataTable
+        </tbody>
+    </table>
+{% endif %}
+{% endblock %}
+
+  <!-- Keep only the latest version of jQuery -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+  integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+      
+  <!-- DataTables JS -->
+  <script src="//cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+{% block extra_js %}
+<script>
+    // Assuming you have a variable 'table' to store the DataTable instance
+    var table;
+    $.ajax({
+      url: '{% url "search_feature" %}',
+      method: 'POST',
+      data: {
+          'search[value]': search_query,
+          csrfmiddlewaretoken: '{{ csrf_token }}',
+      },
+      success: function (response) {
+          // Initialize DataTables only if the table exists and there's valid data
+          if ($('#search-result-table').length > 0) {
+              if (response && response.data && response.data.length > 0) {
+                    table = $('#search-result-table').DataTable({
+                      data: response.data,
+                      columns: [
+                          { data: 'id' },
+                          { data: 'user' },
+                          { data: 'taskTitle' },
+                          { data: 'taskDesc' },
+                          { data: 'status' },
+                          { data: 'assigned_to' },
+                          // Add more columns as needed
+                      ]
+                  });
+              } else {
+                  console.error('Search result not found :', response);
+                  // You might want to display a message to the user or handle it accordingly
+              }
+          }
+      },
+      error: function (error) {
+          console.error('Error:', error);
+      },
+  });
+</script>
+{% endblock %}
+
+
+<div class="pagination">
+  <span class="step-links">
+      {% if tasks.has_previous %}
+          <a href="?page=1">&laquo; first</a>
+          <a href="?page={{ tasks.previous_page_number }}">previous</a>
+      {% endif %}
+    
+      <span class="current">
+          Page {{ tasks.number }} of {{ tasks.paginator.num_pages }}.
+      </span>
+    
+      {% if tasks.has_next %}
+          <a href="?page={{ tasks.next_page_number }}">next</a>
+          <a href="?page={{ tasks.paginator.num_pages }}">last &raquo;</a>
+      {% endif %}
+  </span>
+</div>
+<a href="{% url 'tasks' %}" class="btn btn-secondary">Tasks</a>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</body>
+</html>
+{% endblock body %}
+
+
+

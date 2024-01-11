@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block title %}Login {% endblock title %}
+{% block body %}
+
+{% if messages %}
+    <div class="my-3 mx-5">
+        {% for message in messages %}
+            <div class="alert {% if message.tags == 'success' %}alert-success{% elif message.tags == 'error' %}alert-danger{% endif %}" role="alert">
+                {{ message }}
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}
+
+<h2 class="my-5 mx-5 text-center">Login</h2>
+
+
+<form method="POST" action="{% url 'login_view' %}">
+    {% csrf_token %}
+    <div class="userlogin">
+    <label for="username">Username:</label>
+    <input type="text" id="loginusername" name="loginusername" required>
+    <br>
+ 
+    <label for="password">Password:</label>
+    <input type="password" id="loginpassword" name="loginpassword" required>
+    <br>
+    <a class="forget-pass active" href="{% url 'reset_password' %}">Forget password?</a> 
+    <br>
+    <br>
+    <button type="submit" class="btn btn-primary">Login</button>
+    </div>
+  </form>
+
+
+
+
+{% endblock body %}
+

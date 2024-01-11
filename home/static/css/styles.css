@@ -1,0 +1,437 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'poppins', sans-serif;
+}
+
+.center-container {
+    align-content: center;
+}
+.body {
+    font-family: 'Arial', sans-serif;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.my-4 {
+    margin-top: 4rem;
+    margin-bottom: 4rem;
+}
+
+.my-3 {
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+}
+
+/* Header Styles */
+.w-container {
+    font-size: 4rem;
+    font-weight: 600;
+    text-align: center;
+    color: #005dd6;
+    margin-bottom: 1rem;
+}
+
+.p-container {
+    text-align: center;
+    font-size: 1.6rem;
+    color: #7713b1;
+    margin-bottom: 2rem;
+}
+/* Add Task Section Styles */
+.add {
+    font-size: 1.5rem;
+    color: #007bff; /* Bootstrap primary color */
+    margin-bottom: 1.5rem;
+}
+
+       
+.img-fluid{ 
+    background-image: url('https://images.unsplash.com/photo-1557683304-673a23048d34?auto=format&fit=crop&q=&w=&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTZ8fGJhY2tncm91bmR8ZW58MHx8MHx8fDA%3D');
+    background-size: cover; 
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-attachment: fixed;
+    position:absolute;
+    height: 500vh; 
+    margin: 0; 
+}
+
+    
+.formbody{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
+    color: rgb(140, 16, 189);
+    
+}
+
+
+h2{
+    position: relative;
+    font-style: normal;
+    color: rgb(126, 92, 1);
+    font-weight: 600;
+    margin-left: 5px;
+}
+
+.btn-success {
+    background-color: #28a745; /* Bootstrap success color */
+    color: #fff;
+    padding: 10px 20px;
+    font-size: 1.2rem;
+    border: none;
+    cursor: pointer;    
+    border-radius: 5px;
+}
+
+.btn-success:hover {
+    background-color: #218838; /* Darker shade for hover effect */
+}
+
+/* TaskForm Styles */
+.TaskTitle,
+.TaskDesc,
+.Status,
+.Submission {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+/* AssignedTasks Styles */
+.taskTitle,
+.taskDesc,
+.assigned_to,
+.DueDate {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .container {
+        padding: 0 20px;
+    }
+}
+
+
+.alert {
+    position: relative;
+}
+
+.footer {
+    background-color: #343a40; /* Dark background color */
+    font-weight: bold;
+    color: rgb(255, 0, 0);
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}
+  
+.footer p {
+    margin-bottom: 0; /* Remove default margin for the paragraph */
+}
+  
+.footer:hover {
+    background-color: #212529; /* Darker background color on hover */
+}
+
+#con {
+    position: relative;  
+    margin: 0;
+    text-align: center;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'poppins', sans-serif;
+    font-size: 60px;
+    color: rgb(255, 183, 0)
+ }
+
+ #get-in {
+    color: rgb(247, 177, 0);
+    text-align: center;
+    margin-top: 20px;
+    padding: 0;
+    font-size: 20px;
+    position:relative;
+    box-sizing: border-box;
+    font-family: 'poppins', sans-serif;
+}
+.social {
+    width: 50rem;
+    border: 2px solid black;
+    display: block;
+    color: red;
+    padding: 10px;
+    position: relative;
+}
+
+.linkdin:hover {
+    cursor: url('data:image/svg+xml; utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="blue" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-linkedin"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>'), auto;
+}
+
+.email:hover {
+    cursor: url('data:image/svg+xml; utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="red" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-mails"><rect width="16" height="13" x="6" y="4" rx="2"/><path d="m22 7-7.1 3.78c-.57.3-1.23.3-1.8 0L6 7"/><path d="M2 8v11c0 1.1.9 2 2 2h14"/></svg>'), auto;
+}
+
+.phone:hover {
+    cursor: url('data:image/svg+xml; utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-phone"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>'), auto;
+}
+
+.flex {
+  display: flex;
+  justify-content: center; 
+  align-items: center; 
+  height: 50vh;
+}
+
+
+
+/* Add this to your CSS file or style section in your HTML */
+
+body {
+    font-family: Arial, sans-serif;
+}
+
+.signup {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+  
+.signup label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+  
+.signup input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+  
+.signup button {
+    background-color: #4caf50;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+  
+.signup button:hover {
+    background-color: #45a049;
+}
+  
+
+.userlogin {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+  
+.userlogin label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+  
+.userlogin input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+  
+.userlogin button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+  
+.userlogin button:hover {
+    background-color: #0056b3;
+}
+
+/* for navbar */
+  
+/* Navbar styling */
+.navbar {
+    background-color: #343a40; /* Dark background color */
+    color: white; /* Text color */
+    padding: 10px 0; /* Top and bottom padding */
+}
+  
+  /* Navbar brand styling */
+.navbar-brand {
+    font-size: 1.5rem; /* Adjust the font size as needed */
+    font-weight: bold;
+}
+  
+  /* Navbar links styling */
+.navbar-nav a {
+    color: white; /* Text color for links */
+    margin-right: 15px; /* Adjust the right margin between links */
+}
+  
+  /* Navbar links hover effect */
+.navbar-nav a:hover {
+    color: #ffc107; /* Change the color on hover */
+}
+  
+  /* Search form styling */
+.navbar form {
+    margin-left: auto; /* Move the search form to the right */
+}
+  
+  /* Username and Logout button styling */
+.navbar-nav.ms-auto .nav-link {
+    margin-right: 10px; /* Adjust the right margin between username and logout button */
+}
+  
+  /* Responsive styling for small screens */
+@media (max-width: 767px) {
+    .navbar-nav {
+      margin-top: 10px; /* Add some space between links in the collapsed navbar */
+    }
+  
+    .navbar-nav a {
+      display: block; /* Display links as blocks in collapsed mode */
+      margin-bottom: 5px; /* Adjust the bottom margin between links */
+    }
+}
+  
+
+
+/* for pagination */
+
+
+/* Pagination styles */
+/* Pagination styles */
+.pagination {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+}
+
+.step-links {
+    display: flex;
+    list-style: none;
+    padding: 0;
+}
+
+.step-links a {
+    text-decoration: none;
+    color: #007BFF;
+    margin: 0 4px;
+    padding: 4px;
+    border: 1px solid #007BFF;
+    border-radius: 4px;
+    font-size: 14px; /* Adjust font size as needed */
+}
+
+.step-links a:hover {
+    background-color: #007BFF;
+    color: #fff;
+}
+
+.current {
+    margin: 0 4px;
+    padding: 4px;
+    background-color: #007BFF;
+    color: #fff;
+    border: 1px solid #007BFF;
+    border-radius: 4px;
+    font-size: 14px; /* Adjust font size as needed */
+}
+
+/* styles.css */
+
+/* Style for TaskForm */
+.TaskTitle {
+    width: 100%;
+    padding: 2px;
+    margin-bottom: 12px;
+    box-sizing: border-box;
+}
+
+.TaskDesc {
+    width: 100%;
+    height: 100px;
+    padding: 8px;
+    margin-bottom: 12px;
+    box-sizing: border-box;
+}
+
+.Status {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 12px;
+    box-sizing: border-box;
+}
+
+.Submission {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 12px;
+    box-sizing: border-box;
+}
+
+/* Style for AssignedTasks */
+.taskTitle {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 12px;
+    box-sizing: border-box;
+}
+
+.taskDesc {
+    width: 100%;
+    height: 100px;
+    padding: 8px;
+    margin-bottom: 12px;
+    box-sizing: border-box;
+}
+
+.assigned_to {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 12px;
+    box-sizing: border-box;
+}
+
+.DueDate {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 12px;
+    box-sizing: border-box;
+}
+

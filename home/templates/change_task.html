@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% block title %}Login {% endblock title %}
+{% block body %} 
+
+
+
+    
+{% if messages %}
+<div class="alert alert-success" role="alert">
+    <ul>
+        {% for message in messages %}
+            <li>{{ message }}</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endif %}       
+
+
+      <div class="c-container my-4">
+        <h1 class="w-container"> Manage your day! </h1>
+        
+        <p class="p-container"> Keep track of what you do or what you want to do <P>
+      </div>
+    
+      <div class="container my-3">
+        <h2 class="add"> Edit Task </h2> 
+     </div>
+      
+        <div class="formbody">
+        <div class="container">
+           
+        <form action="{% url 'change_task' task.id %}" method="post">
+            {% csrf_token %}
+            {% if error_messages %}
+                <div class="alert alert-danger" role="alert">
+                    <ul>
+                        {% for error in error_messages %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+            {{ form.as_p }}
+
+            <button class="btn btn-success" type="submit">Save</button>
+
+
+          </form>
+            
+        </div>
+        </div>
+
+
+{% endblock body %}
